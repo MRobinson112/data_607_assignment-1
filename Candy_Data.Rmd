@@ -1,0 +1,74 @@
+---
+title: 'Candy data #2'
+author: "Michael Robinson"
+date: "2023-09-07"
+output:
+  html_document:
+    df_print: paged
+---
+# OVERVIEW The Data I will be working with for this assignment is halloween candy power ranking, i will show which type of candy has the highest percentage of winning. my data was taken from https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking
+
+```{r}
+
+library(dplyr)
+library(readr)
+library(ggplot2)
+options(readr.show_col_types = FALSE)
+
+```
+# Loading Data from github file
+
+```{r}
+
+Candy <- "~/Data_607/candy-data.csv"
+candy_data <- read_csv(Candy)
+
+head(candy_data)
+```
+
+# Renaming a few columns
+
+```{r}
+
+candy_data <- candy_data %>%
+  rename(
+    CandyName = competitorname,
+    Chocolate = chocolate,
+    WinPercent = winpercent
+  )
+head(candy_data)
+```
+
+# Changing the values in the chocolate column from 1's or 0's to "Yes" or "No"
+
+```{r}
+
+candy_data$Chocolate <- ifelse(candy_data$Chocolate, "Yes", "No")
+head(candy_data)
+```
+
+# Selecting  relevant columns for camparison
+
+```{r}
+
+candy_subset <- candy_data %>%
+  select(CandyName, Chocolate, WinPercent)
+```
+
+# Creating a chart comparing chocolate win percent to candy without chocolate
+
+```{r candy 2}
+
+
+ggplot(candy_subset, aes(x = Chocolate, y = WinPercent, fill = Chocolate)) +
+  geom_boxplot() +
+  labs(
+    title = "Comparison of Chocolate vs. Non-Chocolate Candy Win Percent",
+    x = "Contains Chocolate",
+    y = "Win Percent"
+  ) +
+  theme_minimal()
+
+
+```
+# Conclusion: Candies that contains chocolate has the highest percentage of winning.
