@@ -3,6 +3,7 @@ title: 'Candy data #2'
 author: "Michael Robinson"
 date: "2023-09-07"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 ---
@@ -11,6 +12,7 @@ output:
 ```{r}
 
 library(dplyr)
+library(knitr)
 library(readr)
 library(ggplot2)
 options(readr.show_col_types = FALSE)
@@ -72,3 +74,11 @@ ggplot(candy_subset, aes(x = Chocolate, y = WinPercent, fill = Chocolate)) +
 
 ```
 # Conclusion: Candies that contains chocolate has the highest percentage of winning.
+
+```{r, results='asis'}
+
+candy_subset %>%
+   knitr::kable(caption = "Subset table")
+
+
+```
