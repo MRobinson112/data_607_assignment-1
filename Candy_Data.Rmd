@@ -20,7 +20,7 @@ options(readr.show_col_types = FALSE)
 
 ```{r}
 
-Candy <- "~/Data_607/candy-data.csv"
+Candy <- "https://raw.githubusercontent.com/MRobinson112/data_607_assignment-1/main/candy-data.csv"
 candy_data <- read_csv(Candy)
 
 head(candy_data)
